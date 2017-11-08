@@ -27,8 +27,8 @@ if (mysqli_num_rows($result) > 0) {
         <tr>
             <th colspan="3" style="border-bottom: 0px; border-radius: 6px 0 0 0;">Chulalongkorn</th>
             <th colspan="4" style="border-bottom: 0px;">External Institution</th>
-            <th rowspan="2" style="border-bottom: 0px; text-align: center; vertical-align: middle;">Date</th>
-            <th rowspan="2" style="border-bottom: 0px; border-radius: 0 6px 0 0; text-align: center; vertical-align: middle;">Status</th>
+            <th rowspan="2" style="border-bottom: 0px; text-align: center; vertical-align: middle;">Date Approved</th>
+            <th rowspan="2" style="border-bottom: 0px; border-radius: 0 6px 0 0; text-align: center; vertical-align: middle;"><img src="img/ok.png" width="24"></th>
         </tr>
 		<tr>
 			<th>Program</th>
@@ -43,6 +43,7 @@ if (mysqli_num_rows($result) > 0) {
 	<tbody>
 		<?php while($row = mysqli_fetch_assoc($result)) { ?>
 		<tr>
+            <input type="hidden" value="<?=$row['id']?>">
             <td><?php echo $row['program'];?></td>
             <td><?php echo $row['course_1_number'];?></td>
             <td><?php echo $row['course_1_title'];?></td>
