@@ -1,0 +1,76 @@
+.iseNav {
+	padding: 5px;
+	margin-bottom: 20px;
+	background: #801e2b;
+	color: white;
+}
+
+.panel_title {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+.radio-toolbar {
+	margin-bottom: 10px;
+}
+
+.radio-toolbar input[type="radio"] {
+	display: none;
+}
+
+.radio-toolbar label {
+	display: inline-block;
+	background-color: #ddd;
+	padding: 4px 11px;
+	cursor: pointer;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
+	color: white;
+	background-color: #801e2b;
+}
+
+.btn {
+	padding: 12px;
+}
+
+.form-control {
+	width: 80%;
+	padding: 0;
+	border-radius: 0px;
+    border: 0;
+    border-bottom: 2px solid #801e2b;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+	border-color: #801e2b;
+}
+
+th {
+	padding: 15px !important;
+}
+
+td {
+	padding: 12px 0 12px 15px !important;
+}
+
+/*
+thead th:first-child {
+    border-radius: 6px 0 0 0;
+}
+
+thead th:last-child {
+    border-radius: 0 6px 0 0;
+}
+*/
+
+tbody tr:last-child td:first-child {
+    border-radius: 0 0 0 6px;
+}
+
+tbody tr:last-child td:last-child {
+    border-radius: 0 0 6px 0;
+}
+
