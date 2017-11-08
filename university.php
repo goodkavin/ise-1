@@ -27,6 +27,19 @@ require 'resources/session.php';
             $("#result_1").html(data);
         }
       });
+      $.ajax({
+        url: "resources/query.php",
+        type: "post",
+        cache: false,
+        data: {
+          query:'application_course',
+          application_id : $('#application').val(),
+          university_no : $('#university_no').val()
+        },
+        success: function (data) {
+            $("#application_course").html(data);
+        }
+      });
       $("#btnRequest").click(function () {
         $.ajax({
             url: "resources/query.php",
@@ -46,15 +59,13 @@ require 'resources/session.php';
               course_2_detail : $('#course_2_detail').val(),
               course_2_university : $('#university').val(),
               course_2_country : $('#country').val(),
-              sender: '5831398021'
             },
             success: function (data) {
               if(data==1) {
                 alert('Request has been sent!');
                 location.reload();
               } else {
-                alert('Error Sending Request');
-                console.log(data);
+                alert(data);
               }
             }
         });
@@ -62,20 +73,62 @@ require 'resources/session.php';
     });
     $(function() {
       $(document).on('click', '#add', function() {
-         //console.log($(this).parent().find("input[type='hidden']").val());
-         $('#course tbody:last-child').append('\
-                  <tr> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                    <td>Add</td> \
-                  </tr>');
+        //console.log($(this).parent().find("input[type='hidden']").val());
+        /*
+        $('#course tbody:last-child').append('\
+                <tr> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                  <td>Add</td> \
+                </tr>');
+        */
+        $.ajax({
+          url: "resources/query.php",
+          type: "post",
+          cache: false,
+          data: {
+            query: 'take',
+            application_id : $('#application').val(),
+            university_no : $('#university_no').val(),
+            course_id : $(this).parent().find("input[type='hidden']").val(),
+          },
+          success: function (data) {
+            if(data==1) {
+              alert('Course has been added');
+              location.reload();
+            } else {
+              alert(data);
+            }
+          }
+        });
+      });
+      $(document).on('click', '#remove', function() {
+        $.ajax({
+          url: "resources/query.php",
+          type: "post",
+          cache: false,
+          data: {
+            query: 'remove',
+            application_id : $('#application').val(),
+            university_no : $('#university_no').val(),
+            course_id : $(this).parent().find("input[type='hidden']").val(),
+          },
+          success: function (data) {
+            if(data==1) {
+              alert('Course has been removed');
+              location.reload();
+            } else {
+              alert(data);
+            }
+          }
+        });
       });
     });
   </script>
@@ -94,35 +147,14 @@ require 'resources/session.php';
             <div class="panel_title">
               <div>
                 University 1 : Dartmouth College, USA
+                <input type="hidden" id="application" value="1">
+                <input type="hidden" id="university_no" value="1">
                 <input type="hidden" id="university" value="Dartmouth College">
                 <input type="hidden" id="country" value="USA">
               </div>
             </div>
             <div class="panel_title" style="margin-top: 15px;">Courses :</div>
-            <div>
-              <table class="table table-bordered table-striped" id="course">
-                <thead>
-                  <tr>
-                      <th colspan="4" style="border-bottom: 0px; border-radius: 6px 0 0 0;">Chulalongkorn</th>
-                      <th colspan="4" style="border-bottom: 0px;">Dartmouth College</th>
-                      <th rowspan="2" style="border-bottom: 0px; text-align: center; vertical-align: middle;"><img src="img/ok.png" width="24"></th>
-                      <th rowspan="2" style="border-bottom: 0px; border-radius: 0 6px 0 0; text-align: center; vertical-align: middle;">X</th>
-                  </tr>
-                  <tr>
-                    <th>Course #</th>
-                    <th>Course Title</th>
-                    <th>Credit</th>
-                    <th>Hours</th>
-                    <th>Course #</th>
-                    <th>Course Title</th>
-                    <th>Credit/ECTS</th>
-                    <th>Hours</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
+            <div id="application_course"></div>
           </div>
         </div>
       </div>
@@ -206,7 +238,7 @@ require 'resources/session.php';
           </div>
           </form>
            <label for="course_2_detail">Course Detail: </label>
-          <textarea class="form-control" id="course_2_detail" style="width: 80%;" placeholder="Students are introduced to Swedish through talking, reading, listening and writing the language" rows="3"></textarea> 
+          <textarea class="form-control" id="course_2_detail" style="width: 80%;" rows="2"></textarea> 
         </div>
       </div>
       <div class="modal-footer">
