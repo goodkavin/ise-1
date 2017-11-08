@@ -23,4 +23,32 @@ $(document).ready(function(){
 	        }
 	    });
 	});
+	$('input[name=ins_name]').autocomplete({
+      focus: function (event, ui) {
+        $(".ui-helper-hidden-accessible").hide();
+        event.preventDefault();
+      },
+      source: function( request, response ) {
+        $.ajax({
+          url : 'resources/query.php',
+          type: "post",
+          dataType: "json",
+          data: {
+            query:'university',
+            key: $('input[name=ins_name]').val()
+          },
+          success: function(data) {
+          	if(data.length==0) return;
+            response( $.map( data, function(item) {
+              return {
+                label: item,
+                value: item
+              }
+            }));
+          }
+        });
+      },
+      autoFocus: true,
+      minLength: 0,
+    });
 });

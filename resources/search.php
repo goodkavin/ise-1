@@ -5,7 +5,7 @@ $course_institute = $_POST['course_institute'];
 $course_number = $_POST['course_number'];
 $course_title = $_POST['course_title'];
 $ins_country = $_POST['ins_country'];
-$ins_name = $_POST['ins_name'];
+$ins_name = trim($_POST['ins_name']);
 $program = $_POST['program'];
 
 $sql = "SELECT * FROM course WHERE id > 0";
