@@ -1,143 +1,128 @@
 <?php
 require 'resources/session.php';
+include 'header.php';
+$university = "Dartmouth College";
+$country = "USA";
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>ISE Exchange Program</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/isetheme.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="js/ise.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
+<script type="text/javascript">
+  $(document).ready(function () {
+    $.ajax({
+      url: "resources/query.php",
+      type: "post",
+      cache: false,
+      data: {
+        query:'course',
+        key: 'Dartmouth College'
+      },
+      success: function (data) {
+          $("#result_1").html(data);
+      }
+    });
+    $.ajax({
+      url: "resources/query.php",
+      type: "post",
+      cache: false,
+      data: {
+        query:'application_course',
+        application_id : $('#application').val(),
+        university_no : $('#university_no').val()
+      },
+      success: function (data) {
+          $("#application_course").html(data);
+      }
+    });
+    $("#btnRequest").click(function () {
       $.ajax({
-        url: "resources/query.php",
-        type: "post",
-        cache: false,
-        data: {
-          query:'course',
-          key: 'Dartmouth College'
-        },
-        success: function (data) {
-            $("#result_1").html(data);
-        }
+          url: "resources/query.php",
+          type: "post",
+          cache: false,
+          data: {
+            query: 'request',
+            program: $('input[name="program"]:checked').val(),
+            course_1_number : $('#course_1_number').val(),
+            course_1_title : $('#course_1_title').val(),
+            course_1_credit : $('#course_1_credit').val(),
+            course_1_hour : $('#course_1_hour').val(),
+            course_2_number : $('#course_2_number').val(),
+            course_2_title : $('#course_2_title').val(),
+            course_2_credit : $('#course_2_credit').val(),
+            course_2_hour : $('#course_2_hour').val(),
+            course_2_detail : $('#course_2_detail').val(),
+            course_2_university : $('#university').val(),
+            course_2_country : $('#country').val(),
+          },
+          success: function (data) {
+            if(data==1) {
+              alert('Request has been sent!');
+              location.reload();
+            } else {
+              alert(data);
+            }
+          }
       });
+    });
+  });
+  $(function() {
+    $(document).on('click', '#add', function() {
+      //console.log($(this).parent().find("input[type='hidden']").val());
+      /*
+      $('#course tbody:last-child').append('\
+              <tr> \
+                <td>Add</td> \
+                <td>Add</td> \
+                <td>Add</td> \
+                <td>Add</td> \
+                <td>Add</td> \
+                <td>Add</td> \
+                <td>Add</td> \
+                <td>Add</td> \
+                <td>Add</td> \
+                <td>Add</td> \
+              </tr>');
+      */
       $.ajax({
         url: "resources/query.php",
         type: "post",
         cache: false,
         data: {
-          query:'application_course',
+          query: 'take',
           application_id : $('#application').val(),
-          university_no : $('#university_no').val()
+          university_no : $('#university_no').val(),
+          course_id : $(this).parent().find("input[type='hidden']").val(),
         },
         success: function (data) {
-            $("#application_course").html(data);
+          if(data==1) {
+            alert('Course has been added');
+            location.reload();
+          } else {
+            alert(data);
+          }
         }
       });
-      $("#btnRequest").click(function () {
-        $.ajax({
-            url: "resources/query.php",
-            type: "post",
-            cache: false,
-            data: {
-              query: 'request',
-              program: $('input[name="program"]:checked').val(),
-              course_1_number : $('#course_1_number').val(),
-              course_1_title : $('#course_1_title').val(),
-              course_1_credit : $('#course_1_credit').val(),
-              course_1_hour : $('#course_1_hour').val(),
-              course_2_number : $('#course_2_number').val(),
-              course_2_title : $('#course_2_title').val(),
-              course_2_credit : $('#course_2_credit').val(),
-              course_2_hour : $('#course_2_hour').val(),
-              course_2_detail : $('#course_2_detail').val(),
-              course_2_university : $('#university').val(),
-              course_2_country : $('#country').val(),
-            },
-            success: function (data) {
-              if(data==1) {
-                alert('Request has been sent!');
-                location.reload();
-              } else {
-                alert(data);
-              }
-            }
-        });
+    });
+    $(document).on('click', '#remove', function() {
+      $.ajax({
+        url: "resources/query.php",
+        type: "post",
+        cache: false,
+        data: {
+          query: 'remove',
+          application_id : $('#application').val(),
+          university_no : $('#university_no').val(),
+          course_id : $(this).parent().find("input[type='hidden']").val(),
+        },
+        success: function (data) {
+          if(data==1) {
+            alert('Course has been removed');
+            location.reload();
+          } else {
+            alert(data);
+          }
+        }
       });
     });
-    $(function() {
-      $(document).on('click', '#add', function() {
-        //console.log($(this).parent().find("input[type='hidden']").val());
-        /*
-        $('#course tbody:last-child').append('\
-                <tr> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                  <td>Add</td> \
-                </tr>');
-        */
-        $.ajax({
-          url: "resources/query.php",
-          type: "post",
-          cache: false,
-          data: {
-            query: 'take',
-            application_id : $('#application').val(),
-            university_no : $('#university_no').val(),
-            course_id : $(this).parent().find("input[type='hidden']").val(),
-          },
-          success: function (data) {
-            if(data==1) {
-              alert('Course has been added');
-              location.reload();
-            } else {
-              alert(data);
-            }
-          }
-        });
-      });
-      $(document).on('click', '#remove', function() {
-        $.ajax({
-          url: "resources/query.php",
-          type: "post",
-          cache: false,
-          data: {
-            query: 'remove',
-            application_id : $('#application').val(),
-            university_no : $('#university_no').val(),
-            course_id : $(this).parent().find("input[type='hidden']").val(),
-          },
-          success: function (data) {
-            if(data==1) {
-              alert('Course has been removed');
-              location.reload();
-            } else {
-              alert(data);
-            }
-          }
-        });
-      });
-    });
-  </script>
-</head>
-<body>
-
-  <div class="iseNav">
-    <div class="container"><h1>ISE Exchange Program</h1></div>
-  </div>
+  });
+</script>
 
   <div class="container">
     <div class="row">
@@ -149,8 +134,8 @@ require 'resources/session.php';
                 University 1 : Dartmouth College, USA
                 <input type="hidden" id="application" value="1">
                 <input type="hidden" id="university_no" value="1">
-                <input type="hidden" id="university" value="Dartmouth College">
-                <input type="hidden" id="country" value="USA">
+                <input type="hidden" id="university" value="<?=$university?>">
+                <input type="hidden" id="country" value="<?=$country?>">
               </div>
             </div>
             <div class="panel_title" style="margin-top: 15px;">Courses :</div>
