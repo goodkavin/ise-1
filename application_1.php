@@ -5,6 +5,41 @@ require 'resources/header.php';
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Personal Information</h4>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-3 col-form-label">Name:</label>
+              <div class="col-sm-9">
+                <select class="form-control" name="namePrefix">
+                  <option value="">Select Prefix</option>
+                  <option value="mr">Mr.</option>
+                  <option value="miss">Miss</option>
+                </select>
+              </div>
+              <label for="inputPassword" class="col-sm-3 col-form-label"></label>
+              <div class="col-sm-9">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-3 col-form-label">Name in Thai:</label>
+              <div class="col-sm-9">
+                <select class="form-control" name="namePrefix">
+                  <option value="">Select Prefix</option>
+                  <option value="mr">Mr.</option>
+                  <option value="miss">Miss</option>
+                </select>
+              </div>
+              <label for="inputPassword" class="col-sm-3 col-form-label"></label>
+              <div class="col-sm-9">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
         <div class="card card-default">
           <div class="card-body">
             <div class="card_title">Personal information</div>
