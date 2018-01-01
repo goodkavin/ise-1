@@ -5,8 +5,8 @@ require 'resources/header.php';
   <div class="container">
     <div class="row">
       <div class="col-sm-12" style="margin-bottom: 15px;">
-        <div class="progress" style="height:20px">
-          <div class="progress-bar" style="width:100%;height:20px"></div>
+        <div class="progress" style="height:15px">
+          <div class="progress-bar" style="width:100%;height:15px"></div>
         </div> 
       </div>
       <div class="col-sm-6">
