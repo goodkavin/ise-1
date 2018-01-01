@@ -1,13 +1,13 @@
 <?php
 require 'resources/session.php';
-require 'header.php';
+require 'resources/header.php';
 ?>
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="panel_title">Personal information</div>
+        <div class="card card-default">
+          <div class="card-body">
+            <div class="card_title">Personal information</div>
             <form class="form-horizontal">
               <div class="form-group">
                   <div class="col-sm-4"></div>
@@ -111,9 +111,9 @@ require 'header.php';
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="panel_title">English competency</div>
+        <div class="card card-default">
+          <div class="card-body">
+            <div class="card_title">English competency</div>
             <form class="form-inline">
               <div class="form-group">
                 <label >Laguage test:</label>
